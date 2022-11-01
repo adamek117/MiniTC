@@ -1,0 +1,71 @@
+﻿<Window x:Class="MiniTC.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MiniTC"
+        xmlns:vm="clr-namespace:MiniTC.ViewModel"
+        xmlns:view="clr-namespace:MiniTC.View"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="550" Width="700">
+
+    <Window.DataContext>
+        <vm:MainViewModel x:Name="mvm"/>
+    </Window.DataContext>
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Button Content="Copy >>" HorizontalAlignment="Left" Margin ="310,0,0,0" 
+                Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Top" Width="75"
+                Command="{Binding CopyClick}"/>
+        <view:PanelTC
+            Grid.Column="0"
+            Grid.Row="0"
+            ItmSource ="{Binding PanelLewy.Drives, Mode=TwoWay}"
+            ItmSelection="{Binding PanelLewy.SelectedDrive, Mode=TwoWay}"
+            MyText="{Binding PanelLewy.FullPath, Mode=TwoWay}"
+            ListSource="{Binding PanelLewy.ListOfFolders, Mode=TwoWay}"
+            ListSelection ="{Binding PanelLewy.SelectedFolder, Mode=TwoWay}">
+            
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="DrivesCB">
+                    <i:InvokeCommandAction Command="{Binding PanelLewy.ComboboxClick}"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="ListBoxDoubleClick">
+                    <i:InvokeCommandAction Command="{Binding PanelLewy.ListBoxDoubleClick}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            
+        </view:PanelTC>
+
+        <view:PanelTC
+            Grid.Column="1"
+            Grid.Row="0"
+            ItmSource ="{Binding PanelPrawy.Drives, Mode=TwoWay}"
+            ItmSelection="{Binding PanelPrawy.SelectedDrive, Mode=TwoWay}"
+            MyText="{Binding PanelPrawy.FullPath, Mode=TwoWay}"
+            ListSource="{Binding PanelPrawy.ListOfFolders, Mode=TwoWay}"
+            ListSelection ="{Binding PanelPrawy.SelectedFolder, Mode=TwoWay}">
+            
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="DrivesCB">
+                    <i:InvokeCommandAction Command="{Binding PanelPrawy.ComboboxClick}"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="ListBoxDoubleClick">
+                    <i:InvokeCommandAction Command="{Binding PanelPrawy.ListBoxDoubleClick}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            
+        </view:PanelTC>
+                
+    </Grid>
+</Window>
